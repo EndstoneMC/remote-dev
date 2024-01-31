@@ -34,7 +34,7 @@ RUN useradd -m -s /bin/bash endstone \
     && adduser endstone sudo \
     && echo "endstone ALL= NOPASSWD: ALL\\n" >> /etc/sudoers
 
-COPY .github/conan_profiles/linux /home/endstone/.conan2/profiles/default
+COPY conan_profile /home/endstone/.conan2/profiles/default
 RUN chown -R endstone:endstone /home/endstone/.conan2
 
 RUN ( \
