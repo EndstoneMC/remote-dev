@@ -1,5 +1,7 @@
 # 🎯 Remote Development Environment for Endstone
 
+[![CI](https://github.com/EndstoneMC/remote-dev/actions/workflows/build.yml/badge.svg)](https://github.com/EndstoneMC/remote-dev/actions/workflows/ci.yml)
+
 This is a Docker-based remote development environment that provides all the necessary toolchains and libraries required
 for Endstone development on Linux. This ensures a consistent, reliable and easy-to-manage development environment for
 our team and the community.
