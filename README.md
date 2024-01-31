@@ -8,7 +8,8 @@ Now, power on your engines and get ready to code! 🚀
 
 ## 🛠️ What's inside the toolbox?
 
-- Python 🐍 3.12 slim-bullseye
+- Debian 11 (bullseye)
+- Python 3.12 🐍
 - Clang (with LLVM version 15)
 - CMake 3.26.6
 - Conan package manager 2.0
@@ -34,11 +35,15 @@ docker compose up --build -d
 
 ## 🔍 Usage
 
-You can now access the remote development environment using SSH. The username is `endstone` and the password is
-also `endstone`.
+You can now access the remote development environment using SSH:
 
-### Integrating with CLion
+- username: `endstone`
+- password: `endstone`
 
-Following the [instructions] to install a CLion backend in the remote development environment.
+### Integration
 
-[instructions]: https://www.jetbrains.com/remote-development/gateway/
+- **CLion**: Integrating with CLion? Here's a helping hand, follow the guide available on JetBrains
+  website: [Connecting with JetBrains IDEs via SSH](https://www.jetbrains.com/remote-development/gateway/).
+
+- **VSCode**: If you're a fan of VSCode, here's a detailed guide to help you get
+  started: [Developing on Remote Machines or VMs using Visual Studio Code](https://code.visualstudio.com/docs/remote/ssh).
