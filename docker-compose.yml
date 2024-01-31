@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  remote-dev:
+    container_name: endstone-remote-dev
+    image: endstone/remote-dev
+    build: .
+    ports:
+      - '22:22'
+    volumes:
+      - '~/.ssh/:/home/endstone/.ssh/:ro'
