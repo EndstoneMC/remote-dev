@@ -7,5 +7,6 @@ services:
     build: .
     ports:
       - '22:22'
+      - '19132:19132/udp'
     volumes:
       - '~/.ssh/:/home/endstone/.ssh/:ro'
