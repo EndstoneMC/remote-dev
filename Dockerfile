@@ -10,7 +10,7 @@ ARG LLVM_VERSION=15
 ARG CMAKE_VERSION=3.26.6
 
 RUN apt-get update -y -q \
-    && apt-get install -y -q curl lsb-release wget software-properties-common gnupg gdb git ninja-build openssh-server sudo \
+    && apt-get install -y -q build-essential curl lsb-release wget software-properties-common gnupg gdb git ninja-build openssh-server sudo \
     && wget https://apt.llvm.org/llvm.sh \
     && chmod +x llvm.sh \
     && ./llvm.sh ${LLVM_VERSION} \
