@@ -29,6 +29,9 @@ RUN apt-get update -y -q \
     && apt-get clean -y -q \
     && rm -rf /var/lib/apt/lists/*
 
+ENV CXX=clang++ \
+    CC=clang
+
 RUN useradd -m -s /bin/bash endstone \
     && echo "endstone:endstone" | chpasswd \
     && adduser endstone sudo \
