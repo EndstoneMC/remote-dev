@@ -12,7 +12,7 @@ Now, power on your engines and get ready to code! 🚀
 
 - Debian 11 (bullseye)
 - Python 3.12 🐍
-- Clang (with LLVM version 15)
+- Clang (with LLVM version 16)
 - CMake 3.26.6
 - Conan package manager 2.0
 - Git
