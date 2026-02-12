@@ -5,7 +5,7 @@ LABEL maintainer="Endstone <hello@endstone.dev>"
 ENV PYTHONUNBUFFERED=1 \
     PYTHONIOENCODING=UTF-8
 
-ARG LLVM_VERSION=16
+ARG LLVM_VERSION=20
 
 ARG CMAKE_VERSION=4.0.3
 RUN apt-get update -y -q \
