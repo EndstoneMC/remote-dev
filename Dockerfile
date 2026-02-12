@@ -7,7 +7,7 @@ ENV PYTHONUNBUFFERED=1 \
 
 ARG LLVM_VERSION=20
 
-ARG CMAKE_VERSION=4.0.3
+ARG CMAKE_VERSION=4.2.3
 RUN apt-get update -y -q \
     && apt-get install -y -q build-essential curl lsb-release wget software-properties-common gnupg gdb git ninja-build openssh-server sudo \
     && wget https://apt.llvm.org/llvm.sh \
