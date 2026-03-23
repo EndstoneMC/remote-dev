@@ -1,51 +1,46 @@
-# 🎯 Remote Development Environment for Endstone
+# Remote Development Environment for Endstone
 
-[![CI](https://github.com/EndstoneMC/remote-dev/actions/workflows/build.yml/badge.svg)](https://github.com/EndstoneMC/remote-dev/actions/workflows/ci.yml)
+[![Build](https://github.com/EndstoneMC/remote-dev/actions/workflows/build.yml/badge.svg)](https://github.com/EndstoneMC/remote-dev/actions/workflows/build.yml)
 
-This is a Docker-based remote development environment that provides all the necessary toolchains and libraries required
-for Endstone development on Linux. This ensures a consistent, reliable and easy-to-manage development environment for
-our team and the community.
+A Docker-based remote development environment with all toolchains and libraries required for
+[Endstone](https://github.com/EndstoneMC/endstone) C++ development on Linux.
 
-Now, power on your engines and get ready to code! 🚀
+## What's Included
 
-## 🛠️ What's inside the toolbox?
-
-- Debian 11 (bullseye)
-- Python 3.12 🐍
-- Clang (with LLVM version 16)
-- CMake 4.0.3
-- Conan package manager 2.0
-- Git
+- Debian 12 (bookworm)
+- Python 3.12
+- Clang 20 with libc++
+- CMake 4.2.3
+- Conan 2.x package manager
 - Ninja build system
-- SSH Server
-- libc++ standard library
+- Git, GDB, SSH server
 
-## 🚀 Getting started
+Port 19132/udp is exposed for running a Bedrock Dedicated Server inside the container.
 
-First, clone this project and navigate into the project folder:
+## Getting Started
 
-```shell
-git clone https://github.com/EndstoneMC/remote-dev.git endstone-remote-dev
-cd endstone-remote-dev
-```
+Clone and start the container:
 
-Then, simply run:
-
-```shell
+```bash
+git clone https://github.com/EndstoneMC/remote-dev.git
+cd remote-dev
 docker compose up --build -d
 ```
 
-## 🔍 Usage
+Connect via SSH:
 
-You can now access the remote development environment using SSH:
+- Host: `localhost`
+- Username: `endstone`
+- Password: `endstone`
 
-- username: `endstone`
-- password: `endstone`
+## IDE Integration
 
-### Integration
+**CLion**: Use [Remote Development via SSH](https://www.jetbrains.com/remote-development/gateway/)
+to connect to the container.
 
-- **CLion**: Integrating with CLion? Here's a helping hand, follow the guide available on JetBrains
-  website: [Connecting with JetBrains IDEs via SSH](https://www.jetbrains.com/remote-development/gateway/).
+**VS Code**: Use the [Remote - SSH](https://code.visualstudio.com/docs/remote/ssh) extension
+to connect to the container.
 
-- **VSCode**: If you're a fan of VSCode, here's a detailed guide to help you get
-  started: [Developing on Remote Machines or VMs using Visual Studio Code](https://code.visualstudio.com/docs/remote/ssh).
+## License
+
+[MIT License](LICENSE)
