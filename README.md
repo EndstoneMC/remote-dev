@@ -1,6 +1,6 @@
 # 🎯 Remote Development Environment for Endstone
 
-[![CI](https://github.com/EndstoneMC/remote-dev/actions/workflows/build.yml/badge.svg)](https://github.com/EndstoneMC/remote-dev/actions/workflows/ci.yml)
+[![Build](https://github.com/EndstoneMC/remote-dev/actions/workflows/build.yml/badge.svg)](https://github.com/EndstoneMC/remote-dev/actions/workflows/build.yml)
 
 This is a Docker-based remote development environment that provides all the necessary toolchains and libraries required
 for Endstone development on Linux. This ensures a consistent, reliable and easy-to-manage development environment for
@@ -10,42 +10,54 @@ Now, power on your engines and get ready to code! 🚀
 
 ## 🛠️ What's inside the toolbox?
 
-- Debian 11 (bullseye)
+- Debian 12 (bookworm)
 - Python 3.12 🐍
-- Clang (with LLVM version 16)
-- CMake 4.0.3
-- Conan package manager 2.0
+- Clang / LLVM 20 (with libc++)
+- CMake 4.2.3
+- Conan 2.x package manager
 - Git
 - Ninja build system
-- SSH Server
-- libc++ standard library
+- OpenSSH server
+
+Versions are pinned via build args (`LLVM_VERSION`, `CMAKE_VERSION`, `CONAN_VERSION`) — override at build time if you
+need a different toolchain combination.
 
 ## 🚀 Getting started
 
-First, clone this project and navigate into the project folder:
+Clone the repository and start the container:
 
 ```shell
 git clone https://github.com/EndstoneMC/remote-dev.git endstone-remote-dev
 cd endstone-remote-dev
-```
-
-Then, simply run:
-
-```shell
 docker compose up --build -d
 ```
 
+The Conan package cache is mounted as a named volume (`conan-cache`), so dependencies persist across rebuilds.
+
 ## 🔍 Usage
 
-You can now access the remote development environment using SSH:
+SSH into the container with the default password to get started:
 
-- username: `endstone`
-- password: `endstone`
+```shell
+ssh endstone@localhost   # password: endstone
+```
 
-### Integration
+Then install your public key for password-less access on subsequent connections:
 
-- **CLion**: Integrating with CLion? Here's a helping hand, follow the guide available on JetBrains
-  website: [Connecting with JetBrains IDEs via SSH](https://www.jetbrains.com/remote-development/gateway/).
+```shell
+ssh-copy-id endstone@localhost
+```
 
-- **VSCode**: If you're a fan of VSCode, here's a detailed guide to help you get
-  started: [Developing on Remote Machines or VMs using Visual Studio Code](https://code.visualstudio.com/docs/remote/ssh).
+The container's `~/.ssh/` lives on a named volume (`ssh-data`), so your `authorized_keys` survives container rebuilds
+and recreates — you only need to run `ssh-copy-id` once.
+
+> [!WARNING]
+> **Do not expose this container to untrusted networks.** It ships with a well-known default password and passwordless
+> `sudo` for developer convenience. Keep the SSH port bound to `localhost` (or behind a VPN/firewall) when running on
+> shared infrastructure, or change the password and disable `PasswordAuthentication` in `/etc/ssh/sshd_config_endstone`
+> before exposing it.
+
+### IDE integration
+
+- **CLion**: [Connecting with JetBrains IDEs via SSH](https://www.jetbrains.com/remote-development/gateway/)
+- **VS Code**: [Developing on Remote Machines or VMs using Visual Studio Code](https://code.visualstudio.com/docs/remote/ssh)

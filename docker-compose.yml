@@ -1,12 +1,21 @@
-version: '3'
-
 services:
   remote-dev:
     container_name: endstone-remote-dev
     image: endstone/remote-dev
-    build: .
+    build:
+      context: .
+    restart: unless-stopped
     ports:
+      # Exposed on all interfaces for LAN access. If you do not need LAN access,
+      # bind to localhost instead (e.g. '127.0.0.1:22:22') — the default password
+      # makes LAN exposure risky on shared networks. See README for details.
       - '22:22'
       - '19132:19132/udp'
     volumes:
-      - '~/.ssh/:/home/endstone/.ssh/:ro'
+      # Persists authorized_keys (installed via `ssh-copy-id`) across rebuilds.
+      - 'ssh-data:/home/endstone/.ssh'
+      - 'conan-cache:/home/endstone/.conan2'
+
+volumes:
+  ssh-data:
+  conan-cache:

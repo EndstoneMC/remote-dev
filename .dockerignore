@@ -1,0 +1,21 @@
+# VCS
+.git/
+.gitignore
+.github/
+
+# IDE / OS
+.idea/
+.vscode/
+*.iml
+.DS_Store
+Thumbs.db
+
+# Docs (not needed inside the image)
+README.md
+LICENSE
+
+# Compose / local overrides
+docker-compose.yml
+docker-compose.override.yml
+.env
+.env.local
