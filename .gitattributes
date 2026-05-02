@@ -1,0 +1,6 @@
+* text=auto eol=lf
+
+# Shell scripts and Dockerfiles must keep LF endings even on Windows checkouts.
+*.sh text eol=lf
+Dockerfile text eol=lf
+entrypoint.sh text eol=lf

@@ -56,8 +56,7 @@ RUN useradd -m -s /bin/bash endstone \
     && usermod -aG sudo endstone \
     && echo "endstone ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/endstone \
     && chmod 0440 /etc/sudoers.d/endstone \
-    && visudo -c -f /etc/sudoers.d/endstone \
-    && install -d -o endstone -g endstone -m 0700 /home/endstone/.ssh
+    && visudo -c -f /etc/sudoers.d/endstone
 
 COPY --chown=endstone:endstone conan-profile /home/endstone/.conan2/profiles/default
 
@@ -77,9 +76,13 @@ RUN { \
 
 WORKDIR /home/endstone
 
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
 EXPOSE 22
 
 HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
     CMD pgrep -x sshd > /dev/null || exit 1
 
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 CMD ["/usr/sbin/sshd", "-D", "-e", "-f", "/etc/ssh/sshd_config_endstone"]

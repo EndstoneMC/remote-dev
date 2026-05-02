@@ -36,26 +36,33 @@ The Conan package cache is mounted as a named volume (`conan-cache`), so depende
 
 ## 🔍 Usage
 
-SSH into the container with the default password to get started:
+SSH into the container:
 
 ```shell
-ssh endstone@localhost   # password: endstone
+ssh endstone@localhost
 ```
 
-Then install your public key for password-less access on subsequent connections:
+- Username: `endstone`
+- Password: `endstone` (default — see security note below)
 
-```shell
-ssh-copy-id endstone@localhost
-```
+Your host's `~/.ssh/` is bind-mounted read-only at `/mnt/host-ssh` inside the container. On startup, the entrypoint
+copies its contents into `/home/endstone/.ssh/` with the strict ownership and modes OpenSSH requires (a direct mount
+fails on Docker Desktop for Windows/macOS because bind-mount permissions don't satisfy OpenSSH's checks). You get two
+things for free:
 
-The container's `~/.ssh/` lives on a named volume (`ssh-data`), so your `authorized_keys` survives container rebuilds
-and recreates — you only need to run `ssh-copy-id` once.
+- Any public key in your host's `authorized_keys` works for SSH login into the container.
+- Your private keys (e.g. `id_rsa`) are usable by git/ssh inside the container, so `git clone git@github.com:...` and
+  similar commands work without any extra setup.
+
+The host's `~/.ssh/config` is intentionally **not** copied — it usually contains host-specific settings that don't
+translate inside a container, and OpenSSH is especially strict about its permissions. Edit `entrypoint.sh` if you need
+to opt in.
 
 > [!WARNING]
 > **Do not expose this container to untrusted networks.** It ships with a well-known default password and passwordless
-> `sudo` for developer convenience. Keep the SSH port bound to `localhost` (or behind a VPN/firewall) when running on
-> shared infrastructure, or change the password and disable `PasswordAuthentication` in `/etc/ssh/sshd_config_endstone`
-> before exposing it.
+> `sudo` for developer convenience. The host `~/.ssh/` mount also means a compromise of the container exposes your
+> private keys. Keep the SSH port bound to `localhost` (or behind a VPN/firewall) when running on shared infrastructure,
+> or change the password and disable `PasswordAuthentication` in `/etc/ssh/sshd_config_endstone` before exposing it.
 
 ### IDE integration
 

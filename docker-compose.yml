@@ -12,10 +12,12 @@ services:
       - '22:22'
       - '19132:19132/udp'
     volumes:
-      # Persists authorized_keys (installed via `ssh-copy-id`) across rebuilds.
-      - 'ssh-data:/home/endstone/.ssh'
+      # Host ~/.ssh is mounted read-only at /mnt/host-ssh; the container's
+      # entrypoint copies it into /home/endstone/.ssh with the strict perms
+      # OpenSSH requires (Docker bind mounts on Windows/macOS otherwise yield
+      # modes OpenSSH refuses, e.g. for ~/.ssh/config).
+      - '~/.ssh/:/mnt/host-ssh/:ro'
       - 'conan-cache:/home/endstone/.conan2'
 
 volumes:
-  ssh-data:
   conan-cache:
